@@ -59,7 +59,7 @@ async fn download_a(
         | BaseWebsite::GettyImages
         | BaseWebsite::IStock
         // | BaseWebsite::OneTwoThreeRf
-        | BaseWebsite::ShutterStock => {
+        => {
             data.insert("get_url", url.as_str());
             data.insert("download", "");
         }
