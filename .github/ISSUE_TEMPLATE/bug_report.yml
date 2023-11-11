@@ -1,0 +1,64 @@
+name: Bug Report
+description: |
+  Template used for reporting bugs.
+title: "[Bug]:"
+labels: [ bug ]
+assignees:
+  - Kawaxte
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting a bug report, please make sure that it hasn't already been reported by searching for it [here](https://github.com/Kawaxte/stockbasterd-rs/issues?q=is%3Aissue+label%3Abug+is%3Aopen).
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      description: |
+        What is the operating system you're using?
+      options:
+        - Linux
+        - macOS
+        - Windows
+  - type: textarea
+    id: dob
+    attributes:
+      label: Description of Bug
+      description: |
+        Describe the bug you're experiencing.
+      placeholder: |
+        When X happens, Y happens instead of Z.
+    validations:
+      required: true
+  - type: textarea
+    id: eob
+    attributes:
+      label: Expectation of Behavior
+      description: |
+        Describe what you expected to happen, or what you think should happen.
+      placeholder: |
+        I expected Z to happen, but instead Y happened when I did X.
+    validations:
+      required: true
+  - type: textarea
+    id: str
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        Describe the steps required to reproduce the bug.
+      placeholder: |
+        1. Do X.
+        2. Do Y.
+        3. Do Z.
+    validations:
+      required: true
+  - type: textarea
+    id: soc
+    attributes:
+      label: Suspection of Cause
+      description: |
+        Describe what you think is causing the bug.
+      placeholder: |
+        I think the bug is caused by Xa because of Yb and Zc.
+    validations:
+      required: false
