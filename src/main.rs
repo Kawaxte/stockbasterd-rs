@@ -32,7 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     };
 
-    let res = dl::download_all(queue, &dest);
+    let res = dl::process_queue(queue, &dest);
     match res {
         Ok(_) => Ok(()),
         Err(e) => Err(e),
