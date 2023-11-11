@@ -1,0 +1,42 @@
+name: Feature Request
+description: |
+  Template used for requesting features.
+title: "[Feature]:"
+labels: [ feature ]
+assignees:
+  - Kawaxte
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting a feature request, please make sure that it hasn't already been requested by searching for it [here](https://github.com/Kawaxte/stockbasterd-rs/issues?q=is%3Aopen+is%3Aissue+label%3Afeature) and [here](https://github.com/Kawaxte/stockbasterd-rs/pulls?q=is%3Aopen+is%3Apr+label%3Afeature).
+  - type: textarea
+    id: dof
+    attributes:
+      label: Description of Feature
+      description: |
+        Describe the feature you would like to be implemented.
+      placeholder: |
+        I would like for X to be able to do Y.
+    validations:
+      required: true
+  - type: textarea
+    id: iof
+    attributes:
+      label: Implementation of Feature
+      description: |
+        Describe how you would like the feature to be implemented.
+      placeholder: |
+        I would like for X to be able to do Y by doing Xa, Xb, and Xc.
+    validations:
+      required: true
+  - type: textarea
+    id: aof
+    attributes:
+      label: Alternatives to Feature
+      description: |
+        Describe any alternatives to the feature you would like to be implemented.
+      placeholder: |
+        Instead of X being able to do Y, X could do Ya, Yb, and Yc.
+    validations:
+      required: false

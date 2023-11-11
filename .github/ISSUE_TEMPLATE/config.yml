@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support
+    url: https://github.com/Kawaxte/stockbasterd-rs/discussions
+    about: Get help with using StockBasterd.
