@@ -8,20 +8,19 @@ mod queue;
 mod util;
 mod websites;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() {
     let src = open_file_dialog();
-
     let mut queue = Queue::new();
 
-    let txt = read_contents(src)?;
+    let txt = read_contents(src.to_owned())
+        .expect(format!("Failed to read contents of '{:?}'", src).as_str());
     let txt_urls = txt.lines();
     for txt_url in txt_urls {
         queue.add(txt_url);
     }
 
     let dest = open_file_dialog_for_dir();
-
     let urls = queue.urls;
-    let res = run(urls, dest)?;
-    Ok(res)
+
+    run(urls, dest).expect("Failed to download");
 }

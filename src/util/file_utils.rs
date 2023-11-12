@@ -1,9 +1,8 @@
 use rfd::FileDialog;
 
 pub fn read_contents(path: std::path::PathBuf) -> std::io::Result<String> {
-    println!("Reading contents of '{}'...", path.display());
-
-    let contents = std::fs::read_to_string(path)?;
+    let contents = std::fs::read_to_string(path.to_owned())
+        .expect(format!("Failed to read contents of '{:?}'", path).as_str());
     Ok(contents)
 }
 

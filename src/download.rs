@@ -47,36 +47,60 @@ async fn download(
     let res = client.post(site.as_str())
     .header(USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36")
     .form(&data)
-    .send().await?;
+    .send().await.expect(format!("Failed to send POST request to '{}'", site.as_str()).as_str());
     if res.status().is_success() {
         let res_url = res.url().to_string();
-        let res_text = res.text().await?;
+        let res_text = res
+            .text()
+            .await
+            .expect(format!("Failed to retrieve HTML from '{}'", res_url).as_str());
 
         let mut jpeg_url = fetch_url_from_href_a(res_url, res_text);
         if jpeg_url.contains("capture.php") {
-            download_b(&mut jpeg_url).await?;
+            download_b(&mut jpeg_url)
+                .await
+                .expect(format!("Failed to download entity from '{}'", jpeg_url).as_str());
         }
         if !jpeg_url.is_empty() {
             println!("Sending GET request to '{}'", jpeg_url);
 
-            let jpeg_res = client.get(jpeg_url.as_str()).send().await?;
-            let jpeg_res_url = jpeg_res.url().to_string();
+            let jpeg_res = client
+                .get(jpeg_url.as_str())
+                .send()
+                .await
+                .expect(format!("Failed to send GET request to '{}'", jpeg_url).as_str());
+            if jpeg_res.status().is_success() {
+                let jpeg_res_url = jpeg_res.url().to_string();
 
-            let dest_ref = dest.as_ref();
+                println!("Downloading '{}'", jpeg_res_url);
 
-            let file_name = jpeg_res_url
-                .split(&['?', '=', '/'][..])
-                .last()
-                .unwrap()
-                .to_string();
-            let file_path = dest_ref.join(file_name);
-            let mut file = File::create(file_path)?;
+                let dest_ref = dest.as_ref();
 
-            let res_bytes = jpeg_res.bytes().await?;
-            let mut res_bytes_ref = res_bytes.as_ref();
+                let file_name = jpeg_res_url
+                    .split(&['?', '=', '/'][..])
+                    .last()
+                    .expect(
+                        format!("Failed to retrieve file name from '{}'", jpeg_res_url).as_str(),
+                    )
+                    .to_string();
+                let file_path = dest_ref.join(file_name);
 
-            std::io::copy(&mut res_bytes_ref, &mut file)?;
+                let mut file = File::create(file_path).expect("Failed to create file");
+                let res_bytes = jpeg_res
+                    .bytes()
+                    .await
+                    .expect(format!("Failed to retrieve bytes from '{}'", jpeg_res_url).as_str());
+                let mut res_bytes_ref = res_bytes.as_ref();
+
+                std::io::copy(&mut res_bytes_ref, &mut file).expect(
+                    format!("Failed to copy bytes from '{}' to file", jpeg_res_url).as_str(),
+                );
+            }
+        } else {
+            println!("Failed to download from '{}'", url);
         }
+    } else {
+        println!("Failed to download from '{}'", site.as_str());
     }
 
     Ok(())
@@ -87,26 +111,41 @@ async fn download_b(url: &mut String) -> Result<(), Box<dyn std::error::Error>> 
 
     println!("Sending GET request to '{}'", url);
 
-    let res = client.get(url.as_str()).send().await?;
+    let res = client
+        .get(url.as_str())
+        .send()
+        .await
+        .expect(format!("Failed to send GET request to '{}'", url).as_str());
     let res_status = res.status();
     Ok(if res_status.is_success() {
-        let res_text = res.text().await?;
+        let res_text = res
+            .text()
+            .await
+            .expect(format!("Failed to retrieve HTML from '{}'", url).as_str());
 
         *url = fetch_url_from_href_b(res_text);
     })
 }
 
-pub fn run(urls: Vec<String>, dest: std::path::PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+pub fn run(
+    urls: Vec<String>,
+    dest: std::path::PathBuf,
+) -> Result<String, Box<dyn std::error::Error>> {
     let mut tasks = Vec::new();
 
-    urls.to_owned().into_iter().for_each(|url| {
-        tasks.push(download(url, &dest));
-    });
+    for url in &urls {
+        tasks.push(download(url.to_owned(), &dest));
+    }
 
-    let runtime = Runtime::new()?;
+    let runtime = Runtime::new().expect("Failed to create runtime");
     runtime.block_on(async {
-        join_all(tasks).await;
+        let task = join_all(tasks).await;
+        for res in task {
+            if let Err(e) = res {
+                panic!("{}", e);
+            }
+        }
     });
 
-    Ok(())
+    Ok(format!("Downloaded {} entities", urls.len()))
 }
