@@ -12,8 +12,7 @@ pub fn fetch_url_from_href_a(mut res_url: String, html: String) -> String {
         .expect("Failed to compile regular expression");
     let url_re_c = regex::Regex::new(r#"download\.php\?file=.*?\.jpg"#)
         .expect("Failed to compile regular expression");
-
-    let php_re = Regex::new("[^/]*\\.php$").expect("Failed to compile regular expression");
+    let url_re_d = Regex::new("[^/]*\\.php$").expect("Failed to compile regular expression");
 
     let mut url = String::new();
 
@@ -28,7 +27,7 @@ pub fn fetch_url_from_href_a(mut res_url: String, html: String) -> String {
                 } else if href.contains(UD_TOOLXOX_B) {
                     url = href.trim_start_matches(UD_TOOLXOX_B).to_owned();
                 } else {
-                    res_url = php_re.replace_all(&res_url, "").to_string();
+                    res_url = url_re_d.replace_all(&res_url, "").to_string();
                     url = format!("{}{}", res_url, href);
                 }
 
@@ -43,7 +42,7 @@ pub fn fetch_url_from_href_a(mut res_url: String, html: String) -> String {
 }
 
 pub fn fetch_url_from_href_b(html: String) -> String {
-    let url_re_d =
+    let url_re =
         Regex::new(r#".*?rm_wm/images/.*?\.jpg"#).expect("Failed to compile regular expression");
 
     let mut url = String::new();
@@ -54,7 +53,7 @@ pub fn fetch_url_from_href_b(html: String) -> String {
         let href = element.value().attr("href");
         match href {
             Some(href) => {
-                if url_re_d.is_match(href) {
+                if url_re.is_match(href) {
                     url = href.to_owned();
                 }
             }
