@@ -38,6 +38,17 @@ There's no standard for contributing to this project, but please follow the [Rus
 [![gh_issues_a](https://img.shields.io/github/issues/Kawaxte/stockbasterd-rs?logo=github&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/issues)
 [![gh_issues_b](https://img.shields.io/github/issues-closed/Kawaxte/stockbasterd-rs?logo=github&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/issues?q=is%3Aissue+is%3Aclosed)
 
+If you find any bugs or have any suggestions, feel free to open an issue. I'll try to fix the bug or implement the feature as soon as possible.
+
+In case where GitHub is new to you, here's a quick guide on how to open an issue:
+
+1. Click the `Issues` tab on the top of the project page.
+2. Click the `New issue` button on the top right corner of the project page.
+3. Select the type of issue you want to open.
+4. Fill in the necessary details and click the `Submit new issue` button.
+
+I'll try to respond to the issue as soon as possible.
+
 ### Forking and Making Pull Requests
 
 [![gh_pr_a](https://img.shields.io/github/issues-pr/Kawaxte/stockbasterd-rs?logo=github&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/pulls)
