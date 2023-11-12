@@ -47,8 +47,6 @@ In case where GitHub is new to you, here's a quick guide on how to open an issue
 3. Select the type of issue you want to open.
 4. Fill in the necessary details and click the `Submit new issue` button.
 
-I'll try to respond to the issue as soon as possible.
-
 ### Forking and Making Pull Requests
 
 [![gh_pr_a](https://img.shields.io/github/issues-pr/Kawaxte/stockbasterd-rs?logo=github&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/pulls)
