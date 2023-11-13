@@ -27,6 +27,9 @@ jobs:
     - name: Install 'libatk1.0-dev' on Ubuntu
       if: matrix.os == 'ubuntu-latest'
       run: sudo apt-get install -y libatk1.0-dev
+    - name: Install 'libgtk-4-dev' on Ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get install -y libgtk-4-dev
     - name: Build
       run: cargo build --verbose
     - name: Run tests
