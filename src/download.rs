@@ -13,7 +13,6 @@
  * program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use futures::future::join_all;
 use reqwest::header::USER_AGENT;
 use reqwest::Client;
 
@@ -24,25 +23,20 @@ use tokio::runtime::Runtime;
 
 use crate::util::html_utils::{fetch_url_from_href_a, fetch_url_from_href_b};
 use crate::websites::Website;
+use std::time::Instant;
 
-fn get_payload(url: String) -> HashMap<String, String> {
-    let url_owned = url.to_owned();
-
+fn get_payload(url: String) -> HashMap<&'static str, String> {
     let mut data = HashMap::new();
 
-    let site = Website::from(url_owned);
-    match site {
+    match Website::from(&url) {
         Website::EStockPhoto | Website::GettyImages | Website::IStock => {
-            data.insert(String::from("get_url"), url);
-            data.insert(String::from("download"), String::new());
+            data.insert("get_url", url);
+            data.insert("download", String::new());
         }
         Website::BigStockPhoto => {
-            data.insert(String::from("url"), url);
-            data.insert(
-                String::from("token"),
-                String::from("5f1c6979a54c99e1398296826675621a"),
-            );
-            data.insert(String::from("send"), String::new());
+            data.insert("url", url);
+            data.insert("token", "5f1c6979a54c99e1398296826675621a".to_string());
+            data.insert("send", String::new());
         }
     }
     data
@@ -52,7 +46,7 @@ async fn download(
     url: String,
     dest: &dyn AsRef<std::path::Path>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let site = Website::from(url.to_owned());
+    let site = Website::from(&url);
     let data = get_payload(url.to_owned());
 
     let client = Client::new();
@@ -142,25 +136,30 @@ async fn download_b(url: &mut String) -> Result<(), Box<dyn std::error::Error>> 
     })
 }
 
-pub fn run(
-    urls: Vec<String>,
-    dest: std::path::PathBuf,
-) -> Result<String, Box<dyn std::error::Error>> {
+pub fn run(urls: Vec<String>, dest: std::path::PathBuf) -> Result<(), Box<dyn std::error::Error>> {
     let mut tasks = Vec::new();
 
     for url in &urls {
         tasks.push(download(url.to_owned(), &dest));
     }
 
+    let start_time = Instant::now();
     let runtime = Runtime::new().expect("Failed to create runtime");
     runtime.block_on(async {
-        let task = join_all(tasks).await;
+        let task = futures::future::join_all(tasks).await;
         for res in task {
             if let Err(e) = res {
                 panic!("{}", e);
             }
         }
     });
+    let elapsed_time = start_time.elapsed().as_secs_f32();
 
-    Ok(format!("Downloaded {} entities", urls.len()))
+    println!(
+        "Downloaded {} file(s) in {:.3} seconds",
+        urls.len(),
+        elapsed_time
+    );
+
+    Ok(())
 }
