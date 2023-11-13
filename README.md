@@ -5,9 +5,9 @@
 
 ![GitHub Downloads](https://img.shields.io/github/downloads/Kawaxte/stockbasterd-rs/total?sort=semver&logo=github&style=for-the-badge) -->
 
-Simple application designed to download PAID royalty-free images using FREE services provided by [Beatsnoop](https://beatsnoop.com).
+Simple application designed to download PAID royalty-free content for FREE in bulk from various websites.
 
-## Websites with Royalty-Free Images
+## List of Websites
 
 - [ ] [Adobe Stock](https://stock.adobe.com)
 - [ ] [agefotostock](https://agefotostock.com)
@@ -45,7 +45,7 @@ There's no standard for contributing to this project, but please follow the [Rus
 
 If you find any bugs or have any suggestions, feel free to open an issue. I'll try to fix the bug or implement the feature as soon as possible.
 
-In case where GitHub is new to you, here's a quick guide on how to open an issue:
+To open an issue, follow these steps:
 
 1. Click the `Issues` tab on the top of the project page.
 2. Click the `New issue` button on the top right corner of the project page.
@@ -59,7 +59,7 @@ In case where GitHub is new to you, here's a quick guide on how to open an issue
 
 As a fellow Rustacean, I'm always open to suggestions and improvements. If you have any ideas, feel free to fork the project and submit a pull request. I'll review it as soon as possible.
 
-In case where GitHub is new to you, here's a quick guide on how to fork and submit a pull request:
+To fork the project and submit a pull request, follow these steps:
 
 1. Fork the project by clicking the `Fork` button on the top right corner of the project page.
 2. Clone the forked project to your local machine using [Git](https://git-scm.com/) or [GitHub Desktop](https://desktop.github.com/).
@@ -72,10 +72,10 @@ In case where GitHub is new to you, here's a quick guide on how to fork and subm
 
 ## Building from Source
 
+[![gh_build](https://img.shields.io/github/actions/workflow/status/Kawaxte/stockbasterd-rs/rust.yml?logo=github&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/actions/workflows/rust.yml)
+
 [![rust](https://img.shields.io/badge/dynamic/json?logo=rust&label=Rust&color=A72145&style=for-the-badge&query=%24.tag_name&url=https%3A%2F%2Fapi.github.com%2Frepos%2Frust-lang%2Frust%2Freleases%2Flatest)](https://www.rust-lang.org/)
 [![cargo](https://img.shields.io/badge/cargo-555555?logo=rust&style=for-the-badge)](https://doc.rust-lang.org/cargo/)
-
-[![Github Build](https://img.shields.io/github/actions/workflow/status/Kawaxte/stockbasterd-rs/rust.yml?logo=github&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/actions/workflows/rust.yml)
 
 ### Prerequisites
 
@@ -97,4 +97,4 @@ The executable will be located in the `target` directory.
 
 [![gh_licence](https://img.shields.io/github/license/Kawaxte/stockbasterd-rs?logo=github&style=for-the-badge)](LICENSE)
 
-This project is licenced under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html). See the [LICENSE](LICENSE) file for more details.
+This project is licenced under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html).
