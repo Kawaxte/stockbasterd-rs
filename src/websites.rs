@@ -13,13 +13,6 @@
  * program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-fn trim_start_of_url(url: String) -> String {
-    let url_start_trimmed = url
-        .trim_start_matches("https://")
-        .trim_start_matches("www.");
-    url_start_trimmed.to_string()
-}
-
 #[derive(Debug)]
 pub enum Website {
     EStockPhoto,
@@ -39,9 +32,11 @@ impl Website {
     }
 }
 
-impl From<String> for Website {
-    fn from(url: String) -> Self {
-        let url_start_trimmed = trim_start_of_url(url);
+impl From<&String> for Website {
+    fn from(url: &String) -> Self {
+        let url_start_trimmed = url
+            .trim_start_matches("https://")
+            .trim_start_matches("www.");
         match url_start_trimmed {
             url if url.starts_with("bigstockphoto.") => Self::BigStockPhoto,
             url if url.starts_with("estockphoto.") => Self::EStockPhoto,
@@ -54,7 +49,6 @@ impl From<String> for Website {
 
 impl std::fmt::Display for Website {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let url = self.as_str();
-        write!(f, "{}", url)
+        write!(f, "{}", self.as_str())
     }
 }
