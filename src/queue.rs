@@ -23,15 +23,16 @@ impl Queue {
     }
 
     pub fn add(&mut self, url: &str) {
-        match url.starts_with("https://") {
-            true => {
-                if let Some(index) = self.urls.iter().position(|u| u == &url) {
-                    let removed = self.urls.remove(index);
-                    println!("'{}' is already in queue.", removed);
-                }
-                self.urls.push(url.to_string());
-            }
-            false => (),
+        if !url.starts_with("https://") {
+            println!("'{}' is invalid, returning...", url);
+            return;
         }
+
+        if let Some(index) = self.urls.iter().position(|u| u == &url) {
+            let duplicate = self.urls.remove(index);
+            println!("'{}' is duplicated, removing...", duplicate);
+        }
+
+        self.urls.push(url.to_string());
     }
 }
