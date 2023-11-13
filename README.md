@@ -1,5 +1,10 @@
 # StockBasterd
 
+<!-- [![gh_rel_latest](https://img.shields.io/github/v/release/Kawaxte/stockbasterd-rs?sort=date&logo=github&label=latest&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/releases/latest)
+[![gh_rel_pre](https://img.shields.io/github/v/release/Kawaxte/stockbasterd-rs?include_prereleases&sort=date&logo=github&label=pre-release&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/releases)
+
+![GitHub Downloads](https://img.shields.io/github/downloads/Kawaxte/stockbasterd-rs/total?sort=semver&logo=github&style=for-the-badge) -->
+
 Simple application designed to download PAID royalty-free images using FREE services provided by [Beatsnoop](https://beatsnoop.com).
 
 ## Websites with Royalty-Free Images
@@ -69,6 +74,8 @@ In case where GitHub is new to you, here's a quick guide on how to fork and subm
 
 [![rust](https://img.shields.io/badge/dynamic/json?logo=rust&label=Rust&color=A72145&style=for-the-badge&query=%24.tag_name&url=https%3A%2F%2Fapi.github.com%2Frepos%2Frust-lang%2Frust%2Freleases%2Flatest)](https://www.rust-lang.org/)
 [![cargo](https://img.shields.io/badge/cargo-555555?logo=rust&style=for-the-badge)](https://doc.rust-lang.org/cargo/)
+
+[![Github Build](https://img.shields.io/github/actions/workflow/status/Kawaxte/stockbasterd-rs/rust.yml?logo=github&style=for-the-badge)](https://github.com/Kawaxte/stockbasterd-rs/actions/workflows/rust.yml)
 
 ### Prerequisites
 
